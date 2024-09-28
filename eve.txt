@@ -1,0 +1,22 @@
+Elek Thomas-Toth
+
+=====Diffie-Hellman======
+
+To uncover Bob and Alice's secret key, we only need to know one of their secret numbers. 
+We know that Bob's secret number b can be found with the equation 7^b mod 97 = 82 and Alice's
+with the equation 7^a mod 97 = 53. So, we can try 7^x mod 97 for various x until we get a result
+of either 82 or 53. At x = 22, we get 7^22 mod 97 = 53, so we have uncovered Alice's secret number.
+
+At this point, we can calculate the secret key the same way Alice did with 82^22 mod 97 = 65. 
+
+When we tried 7^x mod 97, it was very fortunate that x was only 22. Alice and Bob had had really large
+secret numbers it would have been much more difficult to brute force. 
+
+
+=========RSA=============
+
+We know the Alice encrypted the message using the equation M^13 mod 162991 = X, where each X is one of the integers sent across to Bob. Since M must be less than 162991 to be encrypted without any danger of losing parts of the message, we can try various integers for M up to 162991. Until we get a result for each X. This gives us a list of encoded integers but sadly still no message. By converting these integers to hex, we get a series of 4 digit hex numbers. Converting each byte of the 4-digit numbers to its character equivalent gives the secret message. 
+
+"Dear Bob, check this out. https://www.surveillancewatch.io/ See ya, Alice."
+
+If Bob's key had larger integers, we would have failed when trying to calculate all of the possible M's until we matched all of the integers sent across. However, it could still have been possible to decrypt the message using frequency analysis. Although not as bad as sending across one character at a time, sending two characters at a time could still be a risk for such an attack. Further, by guessing the likely start and end to the letter, an attacker could gain a foothold to decrypting the message. 
