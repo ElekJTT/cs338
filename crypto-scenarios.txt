@@ -1,0 +1,20 @@
+Elek Thomas-Toth
+
+1. Alice and Bob can create a secret key using Diffie-Hellman and use that secret key to encrypt their messages with AES
+
+2. Alice can hash her message and encrypt the hash using her private key. Then she can concatenate that to the her message to digitally sign it and send that over to Bob. When Bob get the full message he can take the signature off of the message and uncencrypt the hash. If that hash matches a new hash of the message, it hasn't been changed.
+
+3. Alice can combine her approaches to 1 and 2 by creating a secret key using Diffie-Hellman to establish a shared key for AES. Then she can send across her message, signed as above.
+
+4. 
+  a) Alice could claim that Mal got access to her private key and altered the document and resigned it. As a judge, this would be hard to disprove, but it is somewhat unlikely if Alice has some reasonable amount of security around her private key.
+  b) Alice could claim that Mal changed the document and resigned it using Mal's own private key. This does not hold any water because it woudn't be able to be unencrypted with Alice's public key
+  c) Alice could claim that Mal changed the document but the resulting hash of the changed document happend to be the same as the hash of the original. This is not at all plausible unless Mal found a weakness in the hashing algorthim that allows her to create easily create collisions which is very unlikely. 
+
+  5. Sig_CA = E(S_CA, H("bob.com" || P_B))
+
+  6. Bob needs to send something that is encrypted using his private key. For example, he could encrypt Alice's public key and send that over too. Once she unencrypts it using his public key that she got from Cert_B, she can be sure that he really is Bob. (so long as she trusts the CA)
+
+  7. Mal could have given the CA a their own public key, P_M, and said that it was Bob's public key. Then Cert_B would contain P_M with Bob.com. Mal could also get inbetween Alice and the CA and Bob and the CA. If neither Bob nor Alice was communicating with the real CA in the first place, it would be easy for Mal to insert their own keys into the conversation. 
+
+  
